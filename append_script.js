@@ -1,0 +1,3 @@
+<script>
+(()=>{const d=document.querySelector('#organigrama .org-diagram');if(!d) return;const s=d.querySelector('svg');const m=document.getElementById('orgModal');const st=document.getElementById('orgStage');const c=document.getElementById('orgClose');if(!s||!m||!st||!c) return;const o=()=>{st.innerHTML=s.outerHTML;m.classList.add('open');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';};const x=()=>{m.classList.remove('open');m.setAttribute('aria-hidden','true');document.body.style.overflow='';st.innerHTML='';};d.addEventListener('click',o);c.addEventListener('click',x);m.addEventListener('click',e=>{if(e.target===m) x();});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&m.classList.contains('open')) x();});})();
+</script>

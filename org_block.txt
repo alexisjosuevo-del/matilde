@@ -1,0 +1,87 @@
+
+
+  // Organigrama: click para expandir + zoom/pan
+  (function(){
+    const orgDiagram = document.querySelector('#organigrama .org-diagram');
+    const srcSvg = orgDiagram ? orgDiagram.querySelector('svg') : null;
+    const modal = document.getElementById('orgModal');
+    const stage = document.getElementById('orgStage');
+    const viewport = document.getElementById('orgViewport');
+
+    if(!orgDiagram || !srcSvg || !modal || !stage || !viewport) return;
+
+    const btnClose = document.getElementById('orgClose');
+    const btnIn = document.getElementById('orgZoomIn');
+    const btnOut = document.getElementById('orgZoomOut');
+    const btnReset = document.getElementById('orgReset');
+
+    let scale = 1;
+    let offsetX = 0;
+    let offsetY = 0;
+    let dragging = false;
+    let startX = 0;
+    let startY = 0;
+    let startOX = 0;
+    let startOY = 0;
+
+    function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+    function apply(){
+      stage.style.transform = `translate(${offsetX}px,${offsetY}px) translate(-50%,-50%) scale(${scale})`;
+    }
+    function open(){
+      stage.innerHTML = srcSvg.outerHTML;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      scale = 1; offsetX = 0; offsetY = 0;
+      apply();
+      if(btnClose && btnClose.focus) btnClose.focus();
+    }
+    function close(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+      stage.innerHTML = '';
+      dragging = false;
+    }
+    function zoomBy(factor){
+      scale = clamp(scale * factor, 0.55, 3.5);
+      apply();
+    }
+
+    orgDiagram.addEventListener('click', open);
+    if(btnClose) btnClose.addEventListener('click', close);
+    if(btnIn) btnIn.addEventListener('click', ()=>zoomBy(1.12));
+    if(btnOut) btnOut.addEventListener('click', ()=>zoomBy(1/1.12));
+    if(btnReset) btnReset.addEventListener('click', ()=>{ scale=1; offsetX=0; offsetY=0; apply(); });
+
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) close(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modal.classList.contains('open')) close(); });
+
+    viewport.addEventListener('wheel', (e)=>{
+      if(!modal.classList.contains('open')) return;
+      e.preventDefault();
+      const factor = (e.deltaY < 0) ? 1.08 : (1/1.08);
+      zoomBy(factor);
+    }, {passive:false});
+
+    viewport.addEventListener('pointerdown', (e)=>{
+      if(!modal.classList.contains('open')) return;
+      dragging = true;
+      viewport.setPointerCapture(e.pointerId);
+      startX = e.clientX; startY = e.clientY;
+      startOX = offsetX; startOY = offsetY;
+    });
+
+    viewport.addEventListener('pointermove', (e)=>{
+      if(!dragging) return;
+      offsetX = startOX + (e.clientX - startX);
+      offsetY = startOY + (e.clientY - startY);
+      apply();
+    });
+
+    viewport.addEventListener('pointerup', ()=>{ dragging = false; });
+    viewport.addEventListener('pointercancel', ()=>{ dragging = false; });
+
+    viewport.addEventListener('dblclick', ()=>{ scale=1; offsetX=0; offsetY=0; apply(); });
+  })();

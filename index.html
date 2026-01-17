@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Paquetes de Servicios | Automatización + CRM + Cotizador + Facturación</title>
+  <meta name="description" content="Paquetes de servicios: publicaciones automáticas, cotizadores, facturadores CFDI, catálogos, CRM e investigación." />
+  <style>
+    :root{--bg:#0b1020;--card:#121a33;--border:rgba(255,255,255,.12);--text:#eaf0ff;--muted:#a9b3d6;--accent:#35d0b3;--accent2:#6b7cff;--radius:18px;}
+    *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:radial-gradient(900px 520px at 15% 10%, rgba(53,208,179,.18), transparent 60%),radial-gradient(900px 520px at 85% 20%, rgba(107,124,255,.20), transparent 60%),linear-gradient(180deg,#070a14 0%,var(--bg) 100%);color:var(--text)}
+    a{color:inherit;text-decoration:none} .wrap{max-width:1120px;margin:0 auto;padding:22px 16px 70px}
+    header{position:sticky;top:0;z-index:10;background:rgba(7,10,20,.60);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+    .top{display:flex;gap:12px;justify-content:space-between;align-items:center;max-width:1120px;margin:0 auto;padding:12px 16px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+    .brand h1{margin:0;font-size:14px;letter-spacing:.3px} .brand p{margin:2px 0 0;color:var(--muted);font-size:12px}
+    select,button{font:inherit;color:var(--text);background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:12px;padding:10px 12px}
+    button{cursor:pointer} button.primary{border-color:rgba(53,208,179,.35);background:linear-gradient(135deg, rgba(53,208,179,.18), rgba(107,124,255,.16))}
+    .hero{margin-top:18px;border:1px solid var(--border);background:rgba(255,255,255,.04);border-radius:var(--radius);padding:18px}
+    .hero h2{margin:0 0 8px;font-size:22px;line-height:1.2} .hero p{margin:0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+    .card{border:1px solid var(--border);background:rgba(255,255,255,.04);border-radius:var(--radius);padding:16px;position:relative;overflow:hidden}
+    .badge{position:absolute;top:12px;right:12px;font-size:11px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.18);color:rgba(255,255,255,.9)}
+    .badge.best{border-color:rgba(53,208,179,.35);background:rgba(53,208,179,.16)}
+    .card h3{margin:0 0 6px;font-size:15px} .desc{margin:0 0 10px;color:var(--muted);font-size:12px}
+    .price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:8px 0 2px}
+    .big{font-size:24px;font-weight:800} .small{font-size:12px;color:var(--muted)}
+    ul{margin:10px 0 0;padding-left:18px} li{margin:7px 0;font-size:13px}
+    .actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+    .actions button{flex:1;min-width:160px}
+    .section{margin-top:22px}
+    .section h4{margin:0 0 10px;font-size:14px;letter-spacing:.3px} .note{margin:0 0 10px;color:var(--muted);font-size:12px}
+    .table{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:rgba(255,255,255,.03)}
+    table{width:100%;border-collapse:collapse;font-size:13px} th,td{padding:12px 10px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top}
+    th{background:rgba(0,0,0,.18);font-size:12px;text-align:left} td.m{color:var(--muted)} .yes{color:#7dffb3;font-weight:700} .no{color:rgba(255,255,255,.32)}
+    .whats{position:fixed;right:16px;bottom:16px;z-index:50;display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:999px;background:rgba(53,208,179,.16);border:1px solid rgba(53,208,179,.28)}
+    .dot{width:10px;height:10px;border-radius:999px;background:var(--accent);box-shadow:0 0 0 6px rgba(53,208,179,.12);animation:pulse 1.6s infinite}
+    @keyframes pulse{0%{transform:scale(1);opacity:1}70%{transform:scale(1.2);opacity:.65}100%{transform:scale(1);opacity:1}}
+    @media (max-width:980px){.grid{grid-template-columns:1fr} header{position:relative}}
+    /* Organigrama */
+    .org-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+    .imggrid{display:grid;grid-template-columns:1fr;gap:12px}
+    .imgcard{border:1px solid var(--border);background:rgba(255,255,255,.04);border-radius:var(--radius);padding:12px}
+    .imgcard img{width:100%;height:auto;display:block;border-radius:12px;border:1px solid rgba(255,255,255,.08)}
+    .imgcard figcaption{margin-top:8px;color:var(--muted);font-size:12px;line-height:1.35}
+
+    .org-diagram{border:1px solid var(--border);background:rgba(255,255,255,.04);border-radius:var(--radius);padding:12px;cursor:zoom-in;position:relative;overflow:hidden;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+    .org-diagram:hover{transform:translateY(-1px);border-color:rgba(53,208,179,.28);box-shadow:0 18px 50px rgba(0,0,0,.38)}
+    .org-diagram:after{content:"Click para expandir";position:absolute;top:12px;left:12px;font-size:12px;color:rgba(234,240,255,.92);background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.14);padding:7px 10px;border-radius:999px;backdrop-filter:blur(8px)}
+    .org-diagram svg{width:100%;height:auto;display:block;transition:transform .25s ease;transform-origin:center}
+    .org-diagram:hover svg{transform:scale(1.02)}
+
+    .legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);border-radius:999px;padding:7px 10px;font-size:12px;color:var(--muted)}
+    .chip b{color:var(--text)}
+
+    .org-modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.72);backdrop-filter:blur(10px)}
+    .org-modal.open{display:flex}
+    .org-modal .panel{width:min(1100px,96vw);height:min(84vh,760px);background:rgba(18,26,51,.92);border:1px solid var(--border);border-radius:22px;box-shadow:0 20px 70px rgba(0,0,0,.60);overflow:hidden;display:flex;flex-direction:column}
+    .org-modal .modalbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.20)}
+    .org-modal .mtitle{font-weight:800;letter-spacing:.2px}
+    .org-modal .msub{font-size:12px;color:var(--muted);margin-top:2px}
+    .org-modal .mcontrols{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .org-modal .mcontrols button{padding:9px 10px;border-radius:12px}
+    .org-modal .modalbody{flex:1;position:relative;overflow:hidden;background:radial-gradient(900px 520px at 20% 20%, rgba(53,208,179,.10), transparent 60%),radial-gradient(900px 520px at 85% 30%, rgba(107,124,255,.12), transparent 60%)}
+    #orgStage{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(1);transform-origin:center;will-change:transform;cursor:grab;touch-action:none}
+    #orgStage:active{cursor:grabbing}
+    #orgStage svg{width:min(1200px,92vw);height:auto;display:block}
+
+    @media (max-width:900px){.org-wrap{grid-template-columns:1fr}}
+
+}
+  </style>
+</head>
+<body>
+<script>
+  window.CONFIG = {
+    whatsappNumber: "5215669998773", // Cambia aqui
+    currency: "MXN",
+    ivaText: "+ IVA (si aplica)"
+  };
+</script>
+
+<header>
+  <div class="top">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <h1>Paquetes de Servicios · Salud + Tecnología</h1>
+        <p>Automatización · CRM · Cotizador · Facturación · Catálogo · Investigación</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <select id="priceMode" aria-label="Modo de precio">
+        <option value="final">Precio final al cliente</option>
+        <option value="cost">Costo interno estimado</option>
+      </select>
+      <button class="primary" id="btnQuote">Solicitar propuesta</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero" id="inicio">
+    <h2>Sistema completo para clínicas: captación → venta → pago → factura → seguimiento</h2>
+    <p>3 paquetes (Basic / Pro / Elite) con entregables claros + add-ons. <span id="ivaLabel"></span></p>
+  </section>
+
+  <section class="section" id="paquetes">
+    <h4>Paquetes</h4>
+    <p class="note">Cambia el selector para ver <b>precio final</b> o <b>costo interno</b>.</p>
+
+    <div class="grid">
+      <article class="card">
+        <span class="badge">Arranque</span>
+        <h3>Basic · Presencia + Leads + Automatización</h3>
+        <p class="desc">Landing, catálogo, CRM y automatización de leads.</p>
+
+        <div class="price"><div class="big" data-price-final="39000" data-price-cost="18000"></div><div class="small">Implementación única</div></div>
+        <div class="price"><div class="big" style="font-size:18px" data-monthly-final="6900" data-monthly-cost="2900"></div><div class="small">Mensualidad</div></div>
+
+        <ul>
+          <li>Landing / sitio (1–3 secciones) + formulario</li>
+          <li>Catálogo simple editable (servicios/estudios)</li>
+          <li>CRM básico (pipeline + etiquetas + seguimiento)</li>
+          <li>Automatización lead → CRM → WhatsApp/email (n8n)</li>
+          <li>8 publicaciones/mes (copys + programación)</li>
+          <li>Dashboard básico (leads, fuentes, conversión)</li>
+        </ul>
+
+        <div class="actions">
+          <button class="primary" onclick="openWhats('Quiero el paquete BASIC. ¿Qué necesitas para iniciar?')">Cotizar por WhatsApp</button>
+          <button onclick="document.getElementById('comparativo').scrollIntoView({behavior:'smooth'})">Ver comparativo</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <span class="badge best">Más vendido</span>
+        <h3>Pro · Growth + Cotizador + Seguimiento</h3>
+        <p class="desc">Cotizador PDF/WhatsApp, automatizaciones y contenido premium.</p>
+
+        <div class="price"><div class="big" data-price-final="79000" data-price-cost="35000"></div><div class="small">Implementación única</div></div>
+        <div class="price"><div class="big" style="font-size:18px" data-monthly-final="12900" data-monthly-cost="5900"></div><div class="small">Mensualidad</div></div>
+
+        <ul>
+          <li>Todo Basic</li>
+          <li><b>Cotizador web</b> (paquetes, promos, PDF + WhatsApp)</li>
+          <li>Catálogo avanzado (filtros, categorías, recomendados)</li>
+          <li>Automatizaciones 7/14/30 días (seguimiento + abandono)</li>
+          <li>16 publicaciones/mes + 4 piezas premium</li>
+          <li>Reporte mensual (KPIs + recomendaciones)</li>
+        </ul>
+
+        <div class="actions">
+          <button class="primary" onclick="openWhats('Quiero el paquete PRO (cotizador + automatizaciones). ¿Qué información te comparto?')">Cotizar por WhatsApp</button>
+          <button onclick="document.getElementById('addons').scrollIntoView({behavior:'smooth'})">Ver add-ons</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <span class="badge">Operación</span>
+        <h3>Elite · CRM + Facturación CFDI + Data</h3>
+        <p class="desc">Ventas, pagos, CFDI, auditoría, dashboards y optimización.</p>
+
+        <div class="price"><div class="big" data-price-final="169000" data-price-cost="75000"></div><div class="small">Implementación única</div></div>
+        <div class="price"><div class="big" style="font-size:18px" data-monthly-final="24900" data-monthly-cost="11900"></div><div class="small">Mensualidad</div></div>
+
+        <ul>
+          <li>Todo Pro</li>
+          <li><b>Facturador CFDI 4.0</b> (PDF/XML, clientes, historial)</li>
+          <li>Usuarios y roles (admin, ventas, operación)</li>
+          <li>Pagos/estatus + auditoría (trazabilidad)</li>
+          <li>Dashboard pro (ventas por usuario, ticket, top servicios)</li>
+          <li>Investigación + estrategia (pricing, competencia)</li>
+        </ul>
+
+        <div class="actions">
+          <button class="primary" onclick="openWhats('Quiero el paquete ELITE (CRM + CFDI + data). ¿Agendamos una llamada?')">Cotizar por WhatsApp</button>
+          <button onclick="document.getElementById('addons').scrollIntoView({behavior:'smooth'})">Ver add-ons</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="comparativo">
+    <h4>Comparativo</h4>
+    <p class="note">Checklist por módulo (para que el cliente vea el alcance exacto).</p>
+    <div class="table">
+      <table>
+        <thead>
+          <tr><th>Módulo</th><th>Basic</th><th>Pro</th><th>Elite</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Landing + formulario</td><td class="yes">Sí</td><td class="yes">Sí</td><td class="yes">Sí</td></tr>
+          <tr><td>Catálogo</td><td class="yes">Simple</td><td class="yes">Avanzado</td><td class="yes">Avanzado</td></tr>
+          <tr><td>CRM</td><td class="yes">Básico</td><td class="yes">Pro</td><td class="yes">Pro + roles</td></tr>
+          <tr><td>Automatización (n8n)</td><td class="yes">Lead → contacto</td><td class="yes">+ abandono + 7/14/30</td><td class="yes">+ auditoría</td></tr>
+          <tr><td>Cotizador (PDF/WhatsApp)</td><td class="no">—</td><td class="yes">Sí</td><td class="yes">Sí</td></tr>
+          <tr><td>Facturación CFDI 4.0</td><td class="no">—</td><td class="no">—</td><td class="yes">Sí</td></tr>
+          <tr><td>Contenido mensual</td><td class="yes">8</td><td class="yes">16 + 4 premium</td><td class="yes">16 + 4 premium</td></tr>
+          <tr><td>Investigación / estrategia</td><td class="m">Lite</td><td class="yes">Mensual</td><td class="yes">Mensual + pricing</td></tr>
+          <tr><td>Dashboards</td><td class="yes">Básico</td><td class="yes">Intermedio</td><td class="yes">Pro</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="addons">
+    <h4>Add-ons</h4>
+    <p class="note">Módulos opcionales para escalar (WhatsApp API, recomendaciones, portal médicos, etc.).</p>
+    <div class="table">
+      <table>
+        <thead>
+          <tr><th>Add-on</th><th>Implementación</th><th>Mensualidad</th><th>Notas</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>WhatsApp Business API + automatización avanzada</td><td>$18,000</td><td>$3,500/mes</td><td class="m">Costo proveedor aparte</td></tr>
+          <tr><td>Motor de recomendaciones (incrementos/alertas)</td><td>$12,000</td><td>$1,500/mes</td><td class="m">Ideal para pricing y catálogos</td></tr>
+          <tr><td>Catálogo tipo e-commerce interno (carrito/combos/stock)</td><td>$25,000 – $45,000</td><td class="m">—</td><td class="m">Depende reglas/roles</td></tr>
+          <tr><td>Portal médicos / referidores (puntos/comisiones)</td><td>$49,000 – $120,000</td><td class="m">—</td><td class="m">Multi-sede opcional</td></tr>
+          <tr><td>Producción audiovisual (1 jornada + edición base)</td><td>$18,000 – $35,000</td><td class="m">—</td><td class="m">Foto/video/podcast</td></tr>
+          <tr><td>Podcast mensual (4 episodios)</td><td class="m">—</td><td>$14,000 – $28,000/mes</td><td class="m">Edición + publicación</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  
+  <section class="section" id="organigrama">
+    <h4>Organigrama: relación entre Propuesta de Valor, Actividades y los Servicios</h4>
+    <p class="note">Estas imágenes se traducen a módulos concretos (contenido, automatización, CRM, cotizador, facturación) y a resultados medibles en adquisición y retención.</p>
+
+    <div class="org-wrap">
+      <div class="imggrid">
+        <figure class="imgcard">
+          <img src="assets/img/actividades_recursos.png" alt="Actividades clave y recursos clave" loading="lazy" />
+          <figcaption><b>Actividades + Recursos</b>: lo que ejecutamos (estrategia, marca, contenido, automatización, datos, ventas) con el equipo + infraestructura + know-how.</figcaption>
+        </figure>
+        <figure class="imgcard">
+          <img src="assets/img/propuesta_valor.png" alt="Propuesta de valor" loading="lazy" />
+          <figcaption><b>Propuesta de Valor</b>: growth especializado en salud + innovación tecnológica + automatización + comunicación que convierte.</figcaption>
+        </figure>
+      </div>
+
+      <div class="org-diagram">
+        <svg viewBox="0 0 860 560" role="img" aria-label="Diagrama de relación entre propuesta de valor, recursos, actividades y servicios">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#35d0b3" stop-opacity="0.35" />
+              <stop offset="1" stop-color="#6b7cff" stop-opacity="0.35" />
+            </linearGradient>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+              <path d="M0,0 L10,3 L0,6 Z" fill="rgba(234,240,255,.75)" />
+            </marker>
+            <style>
+              .box{fill:rgba(255,255,255,.06);stroke:rgba(255,255,255,.18);stroke-width:1.2}
+              .boxA{fill:url(#g1);stroke:rgba(53,208,179,.35);stroke-width:1.4}
+              .t1{font:700 18px system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:#eaf0ff}
+              .t2{font:500 14px system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:rgba(234,240,255,.88)}
+              .t3{font:500 12px system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:rgba(169,179,214,.95)}
+              .l{stroke:rgba(234,240,255,.65);stroke-width:1.2;fill:none;marker-end:url(#arrow)}
+              .ld{stroke:rgba(234,240,255,.35);stroke-dasharray:6 6;stroke-width:1.2;fill:none;marker-end:url(#arrow)}
+            </style>
+          </defs>
+
+          <!-- Propuesta de Valor -->
+          <rect class="boxA" x="230" y="24" rx="18" ry="18" width="400" height="96" />
+          <text class="t1" x="430" y="62" text-anchor="middle">Propuesta de Valor</text>
+          <text class="t3" x="430" y="88" text-anchor="middle">Growth en salud + innovación + creatividad + automatización</text>
+
+          <!-- Recursos -->
+          <rect class="box" x="24" y="154" rx="18" ry="18" width="240" height="170" />
+          <text class="t1" x="144" y="188" text-anchor="middle">Recursos</text>
+          <text class="t2" x="44" y="216">• Equipo</text>
+          <text class="t2" x="44" y="240">• Infraestructura</text>
+          <text class="t2" x="44" y="264">• Intelectuales (método)</text>
+          <text class="t3" x="44" y="292">(habilitan ejecución y calidad)</text>
+
+          <!-- Actividades -->
+          <rect class="box" x="310" y="154" rx="18" ry="18" width="520" height="170" />
+          <text class="t1" x="570" y="188" text-anchor="middle">Actividades Clave</text>
+          <text class="t2" x="330" y="216">• Estrategia + diagnóstico</text>
+          <text class="t2" x="330" y="240">• Branding + diseño</text>
+          <text class="t2" x="330" y="264">• Contenido + social media</text>
+          <text class="t2" x="590" y="216">• Automatización + sistemas</text>
+          <text class="t2" x="590" y="240">• Análisis de datos</text>
+          <text class="t2" x="590" y="264">• Ventas + prospección</text>
+
+          <!-- Servicios -->
+          <rect class="boxA" x="230" y="360" rx="18" ry="18" width="400" height="112" />
+          <text class="t1" x="430" y="396" text-anchor="middle">Servicios (lo que vendes)</text>
+          <text class="t3" x="430" y="420" text-anchor="middle">Paquetes Basic / Pro / Elite</text>
+          <text class="t2" x="260" y="448">• Publicaciones automáticas</text>
+          <text class="t2" x="260" y="472">• CRM + seguimiento</text>
+          <text class="t2" x="520" y="448">• Cotizador + catálogo</text>
+          <text class="t2" x="520" y="472">• Facturación CFDI (Elite)</text>
+
+          <!-- Resultados -->
+          <rect class="box" x="650" y="360" rx="18" ry="18" width="180" height="112" />
+          <text class="t1" x="740" y="396" text-anchor="middle">Resultados</text>
+          <text class="t3" x="740" y="420" text-anchor="middle">medibles</text>
+          <text class="t2" x="664" y="448">• Más leads</text>
+          <text class="t2" x="664" y="472">• Más ventas</text>
+          <text class="t2" x="664" y="496">• Retención</text>
+
+          <!-- Conexiones -->
+          <path class="l" d="M430 120 L430 154" />
+          <path class="l" d="M264 238 L310 238" />
+          <path class="l" d="M570 324 L430 360" />
+          <path class="l" d="M630 416 L650 416" />
+          <path class="ld" d="M144 154 L310 154" />
+        </svg>
+
+        <div class="legend">
+          <span class="chip"><b>Propuesta de Valor</b> → qué prometes</span>
+          <span class="chip"><b>Actividades</b> → qué ejecutas</span>
+          <span class="chip"><b>Servicios</b> → qué entregas</span>
+          <span class="chip"><b>Resultados</b> → qué mejoras</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:10px">Si quieres, lo ajusto a tu pitch: <b>Sanaré</b> (salud/infusión) o <b>Nomad</b> (genética), cambiando ejemplos, módulos y wording.</p>
+  </section>
+
+<section class="section">
+    <h4>Listo para enviar</h4>
+    <p class="note">Si quieres, te lo adapto a tu marca (Sanaré/Nomad) con logo y colores exactos.</p>
+    <button class="primary" onclick="openWhats('Quiero que adaptes este index a mi marca (logo + colores) y lo dejes listo para enviar a clientes.')">Pedir versión con mi marca</button>
+  </section>
+
+</div>
+
+
+<div id="orgModal" class="org-modal" aria-hidden="true" role="dialog" aria-label="Organigrama ampliado">
+  <div class="panel" role="document">
+    <div class="modalbar">
+      <div>
+        <div class="mtitle">Organigrama ampliado</div>
+        <div class="msub">Arrastra para mover · rueda para zoom · doble click para reset</div>
+      </div>
+      <div class="mcontrols">
+        <button id="orgZoomOut" type="button">−</button>
+        <button id="orgZoomIn" type="button">+</button>
+        <button id="orgReset" type="button">Reset</button>
+        <button id="orgClose" type="button" class="primary">Cerrar ✕</button>
+      </div>
+    </div>
+    <div class="modalbody" id="orgViewport">
+      <div id="orgStage"></div>
+    </div>
+  </div>
+</div>
+
+<a class="whats" href="#" id="whatsFloat" aria-label="WhatsApp"><span class="dot" aria-hidden="true"></span><span>WhatsApp</span></a>
+
+<script>
+  const $ = (q)=>document.querySelector(q);
+  const $$ = (q)=>Array.from(document.querySelectorAll(q));
+
+  function money(n){
+    try{ return new Intl.NumberFormat('es-MX',{style:'currency',currency:CONFIG.currency,maximumFractionDigits:0}).format(n); }
+    catch(e){ return '$'+(n||0).toLocaleString('es-MX'); }
+  }
+
+  function openWhats(message){
+    const phone = (CONFIG.whatsappNumber||'').replace(/\D/g,'');
+    const text = encodeURIComponent(message||'Hola, quiero información.');
+    window.open(`https://wa.me/${phone}?text=${text}`,'_blank');
+  }
+  window.openWhats = openWhats;
+
+  $('#ivaLabel').textContent = CONFIG.ivaText;
+
+  const priceMode = $('#priceMode');
+  function renderPrices(){
+    const mode = priceMode.value;
+    $$('[data-price-final]').forEach(el=>{
+      const val = mode==='final' ? Number(el.dataset.priceFinal) : Number(el.dataset.priceCost);
+      el.textContent = money(val);
+    });
+    $$('[data-monthly-final]').forEach(el=>{
+      const val = mode==='final' ? Number(el.dataset.monthlyFinal) : Number(el.dataset.monthlyCost);
+      el.textContent = money(val);
+    });
+  }
+  priceMode.addEventListener('change', renderPrices);
+  renderPrices();
+
+  $('#btnQuote').addEventListener('click', ()=>openWhats('Hola, quiero una propuesta. Mi paquete ideal es: Basic / Pro / Elite.'));
+  $('#whatsFloat').addEventListener('click', (e)=>{ e.preventDefault(); openWhats('Hola, quiero cotizar un paquete (Basic/Pro/Elite).'); });
+
+  // Organigrama: click para expandir + zoom/pan
+  (function(){
+    const orgDiagram = document.querySelector("#organigrama .org-diagram");
+    const srcSvg = orgDiagram ? orgDiagram.querySelector("svg") : null;
+    const modal = document.getElementById("orgModal");
+    const stage = document.getElementById("orgStage");
+    const viewport = document.getElementById("orgViewport");
+    const btnClose = document.getElementById("orgClose");
+    const btnIn = document.getElementById("orgZoomIn");
+    const btnOut = document.getElementById("orgZoomOut");
+    const btnReset = document.getElementById("orgReset");
+
+    if(!orgDiagram || !srcSvg || !modal || !stage || !viewport) return;
+
+    let s = 1, x = 0, y = 0;
+    let dragging = false, startX = 0, startY = 0, startOx = 0, startOy = 0;
+    const clamp = (v,min,max)=>Math.max(min, Math.min(max, v));
+    const apply = ()=>{ stage.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px) scale(${s})`; };
+
+    function open(){
+      stage.innerHTML = srcSvg.outerHTML;
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden","false");
+      document.body.style.overflow = "hidden";
+      s = 1; x = 0; y = 0;
+      apply();
+      if(btnClose) btnClose.focus();
+    }
+
+    function close(){
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden","true");
+      document.body.style.overflow = "";
+      stage.innerHTML = "";
+    }
+
+    orgDiagram.addEventListener("click", open);
+    btnClose && btnClose.addEventListener("click", close);
+    modal.addEventListener("click", (e)=>{ if(e.target === modal) close(); });
+    document.addEventListener("keydown", (e)=>{ if(e.key === "Escape" && modal.classList.contains("open")) close(); });
+
+    btnIn && btnIn.addEventListener("click", ()=>{ s = clamp(s*1.12, 0.6, 3.5); apply(); });
+    btnOut && btnOut.addEventListener("click", ()=>{ s = clamp(s/1.12, 0.6, 3.5); apply(); });
+    btnReset && btnReset.addEventListener("click", ()=>{ s = 1; x = 0; y = 0; apply(); });
+
+    viewport.addEventListener("wheel", (e)=>{
+      if(!modal.classList.contains("open")) return;
+      e.preventDefault();
+      const factor = e.deltaY < 0 ? 1.08 : 1/1.08;
+      s = clamp(s*factor, 0.6, 3.5);
+      apply();
+    }, {passive:false});
+
+    viewport.addEventListener("pointerdown", (e)=>{
+      if(!modal.classList.contains("open")) return;
+      dragging = true;
+      startX = e.clientX; startY = e.clientY;
+      startOx = x; startOy = y;
+      viewport.setPointerCapture(e.pointerId);
+    });
+    viewport.addEventListener("pointermove", (e)=>{
+      if(!dragging) return;
+      x = startOx + (e.clientX - startX);
+      y = startOy + (e.clientY - startY);
+      apply();
+    });
+    viewport.addEventListener("pointerup", ()=>{ dragging = false; });
+    viewport.addEventListener("pointercancel", ()=>{ dragging = false; });
+    viewport.addEventListener("dblclick", ()=>{ s = 1; x = 0; y = 0; apply(); });
+  })();
+</script>
+</body>
+</html>
